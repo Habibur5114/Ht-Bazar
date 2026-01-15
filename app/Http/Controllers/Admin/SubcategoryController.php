@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Subcategory;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -13,10 +14,13 @@ class SubcategoryController extends Controller
     {
         $subcategories = Subcategory::with('category')->get();
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $subcategories,
-        ]);
+        return view('Admin.subcategory.index', compact('subcategories'));
+    }
+
+    public function create()
+    {
+        $categories = Category::get();
+        return view('Admin.subcategory.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -48,10 +52,7 @@ class SubcategoryController extends Controller
             'image' => $imagePath,
         ]);
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $subcategory,
-        ], 201);
+        return redirect()->route('admin.subcategory.index')->with('success', 'Subcategory created successfully!');
     }
 
     public function edit($id)

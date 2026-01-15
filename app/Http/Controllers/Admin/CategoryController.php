@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
@@ -13,10 +14,12 @@ class CategoryController extends Controller
     {
         $categories = Category::latest()->get();
 
-        return response()->json([
-            'status' => true,
-            'data' => $categories,
-        ], 200);
+        return view('Admin.category.index', compact('categories'));
+    }
+
+    public function create()
+    {
+        return view('Admin.category.create');
     }
 
     public function store(Request $request)
@@ -46,10 +49,7 @@ class CategoryController extends Controller
             'slug' => Str::slug($request->name, '-'),
         ]);
 
-        return response()->json([
-            'status' => 'success',
-            'category' => $category,
-        ]);
+        return redirect()->route('admin.category.index')->with('success', 'Category created successfully!');
     }
 
     public function edit($id)
@@ -59,56 +59,57 @@ class CategoryController extends Controller
             return response()->json(['message' => 'Category not found'], 404);
         }
 
-        return response()->json($category);
+        return view('Admin.category.edit', compact('category'));
     }
 
     public function update(Request $request, $id)
     {
-
         $category = Category::findOrFail($id);
 
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'status' => 'required|in:0,1',
-
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         if ($request->hasFile('image')) {
+
+            if ($category->image && File::exists(public_path($category->image))) {
+                File::delete(public_path($category->image));
+            }
+
             $image = $request->file('image');
             $imageName = time().'_'.$image->getClientOriginalName();
             $image->move(public_path('uploads/category'), $imageName);
+
             $category->image = 'uploads/category/'.$imageName;
         }
 
         $category->name = $request->name;
         $category->description = $request->description;
         $category->status = $request->status;
-        $category->slug = Str::slug($request->name, '-');
+        $category->slug = Str::slug($request->name);
 
         $category->save();
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Category updated successfully!',
-            'category' => $category,
-        ]);
+        return redirect()
+            ->route('admin.category.index')
+            ->with('success', 'Category updated successfully!');
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
-        $category = Category::find($id);
+        $category = Category::findOrFail($id);
 
-        if (! $category) {
-            return response()->json(['message' => 'Category not found'], 404);
-        }
-
-        if ($category->image && file_exists(public_path($category->image))) {
-            unlink(public_path($category->image));
+        if ($category->image && File::exists(public_path($category->image))) {
+            File::delete(public_path($category->image));
         }
 
         $category->delete();
 
-        return response()->json(['message' => 'Category deleted successfully']);
+        return redirect()
+            ->route('admin.category.index')
+            ->with('success', 'Category deleted successfully!');
     }
 }

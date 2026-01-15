@@ -26,6 +26,43 @@
                         </a>
                     </li>
                 @endcan
+                {{-- @canany(['admin.index','admin.roles.index']) --}}
+                    <li class="nav-item @yield('CategoryMenuOpen')">
+                        <a href="#" class="nav-link @yield('CategoryActive')">
+                            <i class="nav-icon bi bi-circle-fill"></i>
+                            <p>
+                                Category
+                                <i class="nav-arrow bi bi-chevron-right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                              @can('admin.index')
+                            <li class="nav-item">
+                                <a href="{{ route('admin.category.index') }}" class="nav-link @yield('categoryList')">
+                                    <i class="nav-icon bi bi-circle"></i>
+                                    <p>category</p>
+                                </a>
+                            </li>
+                             @endcan
+                            @can('admin.roles.index')
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.subcategory.index') }}" class="nav-link @yield('subcategoryList')">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Subcategory</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('admin.roles.index')
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.color.index') }}" class="nav-link @yield('colorList')">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Color</p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                {{-- @endcanany --}}
                 @canany(['admin.index','admin.roles.index'])
                     <li class="nav-item @yield('AdminMenuOpen')">
                         <a href="#" class="nav-link @yield('AdminActive')">
