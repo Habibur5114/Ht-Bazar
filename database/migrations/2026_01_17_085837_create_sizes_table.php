@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('colors', function (Blueprint $table) {
+        Schema::create('sizes', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100)->unique();
+            $table->string('name', 50);        // e.g. S, M, L, XL
             $table->string('slug', 50)->unique();
-            $table->boolean('status')->default(1); // 1 = active, 0 = inactive
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('colors');
+        Schema::dropIfExists('sizes');
     }
 };

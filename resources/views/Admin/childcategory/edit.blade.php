@@ -1,7 +1,7 @@
 @extends('admin.master')
 @section('CategoryMenuOpen', 'menu-open')
 @section('CategoryActive', 'active')
-@section('subcategoryList', 'active')
+@section('childcategoryList', 'active')
 @section('title') {{ $title ?? 'category create' }} @endsection
 @section('content')
     <div class="mt-5">
@@ -12,14 +12,14 @@
                         <div class="col-md-12 m-2">
                             <div class="card mb-4">
                                 <div class="d-flex justify-content-between align-items-center m-3 ">
-                                    <h3 class="card-title"><b>Edit Subcategory</b></h3>
-                                    <a href="{{ route('admin.subcategory.index') }}" class="btn btn-primary">
+                                    <h3 class="card-title"><b>Edit ChildCategory</b></h3>
+                                    <a href="{{ route('admin.childcategory.index') }}" class="btn btn-primary">
                                         Back
                                     </a>
                                 </div>
                                 <hr>
                                 <div class="card-body">
-                                    <form method="POST" action="{{ route('admin.subcategory.update', $subcategorys->id) }}"
+                                    <form method="POST" action="{{ route('admin.childcategory.update', $childCategory->id) }}"
                                         enctype="multipart/form-data">
                                         @csrf
 
@@ -29,7 +29,7 @@
                                                     <label class="form-label">Name <span
                                                             class="text-danger">*</span></label>
                                                     <input type="text" name="name" class="form-control"
-                                                        placeholder="Enter name" value="{{ old('name', $subcategorys->name) }}">
+                                                        placeholder="Enter name" value="{{ old('name', $childCategory->name) }}">
                                                     @error('name')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
@@ -40,16 +40,16 @@
                                                 <div class="mb-3">
                                                     <label class="form-label">Category Name<span
                                                             class="text-danger">*</span></label>
-                                                    <select class="form-select form-control" name="category_id"  >
-                                                        <option value="">Select Category</option>
-                                                        @foreach ($categories as $category)
-                                                            <option value="{{ $category->id }}"
-                                                                {{ old('category_id', $subcategorys->category_id) == $category->id ? 'selected' : '' }}>
-                                                                {{ $category->name }}
+                                                    <select class="form-select form-control" name="subcategory_id"  >
+                                                        <option value="">Select SubCategory</option>
+                                                        @foreach ($subcategories as $subcategory)
+                                                            <option value="{{ $subcategory->id }}"
+                                                                {{ old('subcategory_id', $childCategory->subcategory_id) == $subcategory->id ? 'selected' : '' }}>
+                                                                {{ $subcategory->name }}
                                                             </option>
                                                         @endforeach
                                                     </select>
-                                                    @error('category_id')
+                                                    @error('subcategory_id')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -71,7 +71,7 @@
                                                 <div class="mb-3">
                                                     <label class="form-label">Description<span
                                                             class="text-danger">*</span></label>
-                                                    <textarea name="description" id="" class="form-control" cols="30" rows="5">{{ old('description', $subcategorys->description) }}</textarea>
+                                                    <textarea name="description" id="" class="form-control" cols="30" rows="5">{{ old('description', $childCategory->description) }}</textarea>
                                                     @error('description')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror

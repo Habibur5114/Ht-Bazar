@@ -1,7 +1,7 @@
 @extends('admin.master')
 @section('CategoryMenuOpen', 'menu-open')
 @section('CategoryActive', 'active')
-@section('colorList', 'active')
+@section('brandList', 'active')
 @section('title') {{ $title ?? 'category create' }} @endsection
 @section('content')
     <div class="mt-5">
@@ -12,14 +12,14 @@
                         <div class="col-md-12 m-2">
                             <div class="card mb-4">
                                 <div class="d-flex justify-content-between align-items-center m-3 ">
-                                    <h3 class="card-title"><b>Edit Color</b></h3>
-                                    <a href="{{ route('admin.color.index') }}" class="btn btn-primary">
+                                    <h3 class="card-title"><b>Create brand</b></h3>
+                                    <a href="{{ route('admin.brand.index') }}" class="btn btn-primary">
                                         Back
                                     </a>
                                 </div>
                                 <hr>
                                 <div class="card-body">
-                                    <form method="POST" action="{{ route('admin.color.update', $color->id) }}"
+                                    <form method="POST" action="{{ route('admin.brand.store') }}"
                                         enctype="multipart/form-data">
                                         @csrf
 
@@ -29,23 +29,33 @@
                                                     <label class="form-label">Name <span
                                                             class="text-danger">*</span></label>
                                                     <input type="text" name="name" class="form-control"
-                                                        placeholder="Enter name" value="{{ old('name', $color->name) }}">
+                                                        placeholder="Enter name" value="{{ old('name') }}">
                                                     @error('name')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                             </div>
-
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">Status<span
                                                             class="text-danger">*</span></label>
                                                     <select class="form-select form-control" name="status">
-                                                        <option value="1" {{ $color->status == 1 ? 'selected' : '' }}>Active</option>
-                                                        <option value="0" {{ $color->status == 0 ? 'selected' : '' }}>Inactive</option>
+                                                        <option value="1">Active</option>
+                                                        <option value="0">Inactive</option>
 
                                                     </select>
                                                     @error('status')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                             <div class="col-md-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Image <span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="file" name="image" class="form-control"
+                                                        placeholder="Enter image" value="{{ old('image') }}">
+                                                    @error('image')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>

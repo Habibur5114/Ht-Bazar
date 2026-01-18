@@ -89,8 +89,7 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->description = $request->description;
         $category->status = $request->status;
-        $category->slug = Str::slug($request->name);
-
+    
         $category->save();
 
         return redirect()

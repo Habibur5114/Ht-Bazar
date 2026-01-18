@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Brand extends Model
 {
@@ -11,8 +12,16 @@ class Brand extends Model
     protected $fillable = [
         'name',
         'slug',
-        'description',
         'image',
         'status',
     ];
+
+     public static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($brand) {
+            $brand->slug = Str::slug($brand->name);
+        });
+    }
 }

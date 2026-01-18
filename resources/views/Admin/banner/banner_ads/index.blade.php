@@ -1,10 +1,8 @@
 @extends('admin.master')
-@section('CategoryMenuOpen', 'menu-open')
-@section('CategoryActive', 'active')
-@section('colorList', 'active')
-@section('title') {{ $title ?? 'category list' }} @endsection
-
-
+@section('BannerMenuOpen', 'menu-open')
+@section('BannerActive', 'active')
+@section('bannerAdsList', 'active')
+@section('title') {{ $title ?? 'banner Ads list' }} @endsection
 @section('content')
     <div class=" mt-5">
         <main class="app-main">
@@ -14,9 +12,9 @@
                         <div class="col-md-12 m-2">
                             <div class="card mb-4">
                                 <div class="d-flex justify-content-between align-items-center m-3 ">
-                                    <h3 class="card-title mb-0"><b>Color List</b></h3>
+                                    <h3 class="card-title mb-0"><b>Banner Ads List</b></h3>
 
-                                    <a href="{{ route('admin.color.create') }}" class="btn btn-primary">+ Color
+                                    <a href="{{ route('admin.banner-ads.create') }}" class="btn btn-primary">+ Banner Ads
                                         Create</a>
 
                                 </div>
@@ -26,24 +24,31 @@
                                         <thead>
                                             <tr>
                                                 <th style="width: 10px">sl</th>
-                                        
-                                                <th>Name</th>
+                                                <th>Banner Category</th>
+                                                <th>image</th>
                                                 <th>Status</th>
                                                 <th style="width: 120px">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($colors as $color)
+                                            @foreach ($banners as $banner)
                                                 <tr class="align-middle">
-                                                    <td>{{ $color->id }}</td>
-                                                    <td>{{ $color->name }}</td>
+                                                    <td>{{ $banner->id }}</td>
+                                                    <td>{{ $banner->bannercategory->name }}</td>
                                                     <td>
-                                                        {{ $color->status == 1 ? 'Active' : 'Inactive' }}
+                                                        @if ($banner->image)
+                                                            <img src="{{ asset('uploads/banners/' . $banner->image) }}" width="30">
+                                                        @else
+                                                            No Image
+                                                        @endif
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('admin.color.edit', $color->id) }}"
+                                                        {{ $banner->status == 1 ? 'Active' : 'Inactive' }}
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ route('admin.banner-ads.edit', $banner->id) }}"
                                                             class="btn btn-sm btn-primary">Edit</a>
-                                                        <a href="{{ route('admin.color.delete', $color->id) }}"
+                                                        <a href="{{ route('admin.banner-ads.delete', $banner->id) }}"
                                                             class="btn btn-sm btn-danger confirmDelete">
                                                             Delete
                                                         </a>
@@ -63,4 +68,3 @@
         </main>
     </div>
 @endsection
-

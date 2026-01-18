@@ -5,7 +5,12 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\ColorController;
+use App\Http\Controllers\Admin\SizeController;
+use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\ChildCategoryController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\BannerCategoryController;
+use App\Http\Controllers\Admin\BannerAdsController;
 use Illuminate\Support\Facades\Route;
 
 // admin
@@ -49,6 +54,14 @@ Route::middleware(['admin:admin', 'role'])->prefix('admin')->name('admin.')->gro
         Route::post('update/{id}', [SubcategoryController::class, 'update'])->name('subcategory.update');
         Route::get('delete/{id}', [SubcategoryController::class, 'delete'])->name('subcategory.delete');
     });
+    Route::prefix('childcategory')->group(function () {
+        Route::get('index', [ChildCategoryController::class, 'index'])->name('childcategory.index');
+        Route::get('create', [ChildCategoryController::class, 'create'])->name('childcategory.create');
+        Route::post('store', [ChildCategoryController::class, 'store'])->name('childcategory.store');
+        Route::get('edit/{id}', [ChildCategoryController::class, 'edit'])->name('childcategory.edit');
+        Route::post('update/{id}', [ChildCategoryController::class, 'update'])->name('childcategory.update');
+        Route::get('delete/{id}', [ChildCategoryController::class, 'delete'])->name('childcategory.delete');
+    });
     Route::prefix('color')->group(function () {
         Route::get('index', [ColorController::class, 'index'])->name('color.index');
         Route::get('create', [ColorController::class, 'create'])->name('color.create');
@@ -56,6 +69,38 @@ Route::middleware(['admin:admin', 'role'])->prefix('admin')->name('admin.')->gro
         Route::get('edit/{id}', [ColorController::class, 'edit'])->name('color.edit');
         Route::post('update/{id}', [ColorController::class, 'update'])->name('color.update');
         Route::get('delete/{id}', [ColorController::class, 'delete'])->name('color.delete');
+    });
+    Route::prefix('size')->group(function () {
+        Route::get('index', [SizeController::class, 'index'])->name('size.index');
+        Route::get('create', [SizeController::class, 'create'])->name('size.create');
+        Route::post('store', [SizeController::class, 'store'])->name('size.store');
+        Route::get('edit/{id}', [SizeController::class, 'edit'])->name('size.edit');
+        Route::post('update/{id}', [SizeController::class, 'update'])->name('size.update');
+        Route::get('delete/{id}', [SizeController::class, 'delete'])->name('size.delete');
+    });
+    Route::prefix('brand')->group(function () {
+        Route::get('index', [BrandController::class, 'index'])->name('brand.index');
+        Route::get('create', [BrandController::class, 'create'])->name('brand.create');
+        Route::post('store', [BrandController::class, 'store'])->name('brand.store');
+        Route::get('edit/{id}', [BrandController::class, 'edit'])->name('brand.edit');
+        Route::post('update/{id}', [BrandController::class, 'update'])->name('brand.update');
+        Route::get('delete/{id}', [BrandController::class, 'delete'])->name('brand.delete');
+    });
+    Route::prefix('banner-category')->group(function () {
+        Route::get('index', [BannerCategoryController::class, 'index'])->name('banner-category.index');
+        Route::get('create', [BannerCategoryController::class, 'create'])->name('banner-category.create');
+        Route::post('store', [BannerCategoryController::class, 'store'])->name('banner-category.store');
+        Route::get('edit/{id}', [BannerCategoryController::class, 'edit'])->name('banner-category.edit');
+        Route::post('update/{id}', [BannerCategoryController::class, 'update'])->name('banner-category.update');
+        Route::get('delete/{id}', [BannerCategoryController::class, 'delete'])->name('banner-category.delete');
+    });
+    Route::prefix('banner-ads')->group(function () {
+        Route::get('index', [BannerAdsController::class, 'index'])->name('banner-ads.index');
+        Route::get('create', [BannerAdsController::class, 'create'])->name('banner-ads.create');
+        Route::post('store', [BannerAdsController::class, 'store'])->name('banner-ads.store');
+        Route::get('edit/{id}', [BannerAdsController::class, 'edit'])->name('banner-ads.edit');
+        Route::post('update/{id}', [BannerAdsController::class, 'update'])->name('banner-ads.update');
+        Route::get('delete/{id}', [BannerAdsController::class, 'delete'])->name('banner-ads.delete');
     });
 
     // settings

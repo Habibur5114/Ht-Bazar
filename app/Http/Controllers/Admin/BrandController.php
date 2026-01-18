@@ -5,109 +5,96 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+
 
 class BrandController extends Controller
 {
+
     public function index()
     {
         $brands = Brand::latest()->get();
-
-        return response()->json([
-            'status' => true,
-            'data' => $brands,
-        ], 200);
+        return view('admin.brand.index', compact('brands'));
     }
 
+    // Show create form
+    public function create()
+    {
+        return view('admin.brand.create');
+    }
+
+    // Store new brand
     public function store(Request $request)
     {
-
         $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required',
-            'status' => 'required',
-
+            'name' => 'required|string|max:100|unique:brands,name',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'status' => 'required|boolean',
         ]);
 
-        $imagePath = null;
+        $data = $request->only('name', 'status');
 
+        // Handle image upload
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time().'_'.$image->getClientOriginalName();
-            $image->move(public_path('uploads/brand'), $imageName);
-            $imagePath = 'uploads/brand/'.$imageName;
+            $image->move(public_path('uploads/brands'), $imageName);
+            $data['image'] = $imageName;
         }
 
-        $brand = Brand::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'status' => $request->status,
-            'image' => $imagePath,
-            'slug' => Str::slug($request->name, '-'),
-        ]);
+        Brand::create($data);
 
-        return response()->json([
-            'status' => 'success',
-            'category' => $brand,
-        ]);
+        return redirect()->route('admin.brand.index')->with('success', 'Brand created successfully!');
     }
 
+    // Show edit form
     public function edit($id)
     {
-        $brand = Brand::find($id);
-        if (! $brand) {
-            return response()->json(['message' => 'Brand not found'], 404);
-        }
-
-        return response()->json($brand);
+        $brand = Brand::findOrFail($id);
+        return view('admin.brand.edit', compact('brand'));
     }
 
+    // Update brand
     public function update(Request $request, $id)
     {
-
         $brand = Brand::findOrFail($id);
 
         $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'status' => 'required|in:0,1',
-
+            'name' => 'required|string|max:100|unique:brands,name,' . $id,
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'status' => 'required|boolean',
         ]);
+
+        $data = $request->only('name', 'status');
 
         if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($brand->image && file_exists(public_path('uploads/brands/'.$brand->image))) {
+                unlink(public_path('uploads/brands/'.$brand->image));
+            }
+
             $image = $request->file('image');
             $imageName = time().'_'.$image->getClientOriginalName();
-            $image->move(public_path('uploads/category'), $imageName);
-            $category->image = 'uploads/category/'.$imageName;
+            $image->move(public_path('uploads/brands'), $imageName);
+            $data['image'] = $imageName;
         }
 
-        $category->name = $request->name;
-        $category->description = $request->description;
-        $category->status = $request->status;
-        $category->slug = Str::slug($request->name, '-');
+        $brand->update($data);
 
-        $category->save();
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Category updated successfully!',
-            'category' => $category,
-        ]);
+        return redirect()->route('admin.brand.index')->with('success', 'Brand updated successfully!');
     }
 
-    public function destroy($id)
+    // Delete brand
+    public function delete($id)
     {
-        $brand = Brand::find($id);
+        $brand = Brand::findOrFail($id);
 
-        if (! $brand) {
-            return response()->json(['message' => 'Brand not found'], 404);
+        // Delete image if exists
+        if ($brand->image && file_exists(public_path('uploads/brands/'.$brand->image))) {
+            unlink(public_path('uploads/brands/'.$brand->image));
         }
 
-        if ($brand->image && file_exists(public_path($brand->image))) {
-            unlink(public_path($brand->image));
-        }
         $brand->delete();
 
-        return response()->json(['message' => 'Brand deleted successfully']);
+        return redirect()->route('admin.brand.index')->with('success', 'Brand deleted successfully!');
     }
 }

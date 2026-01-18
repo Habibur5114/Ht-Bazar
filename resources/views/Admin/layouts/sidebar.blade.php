@@ -31,7 +31,7 @@
                         <a href="#" class="nav-link @yield('CategoryActive')">
                             <i class="nav-icon bi bi-circle-fill"></i>
                             <p>
-                                Category
+                                Products
                                 <i class="nav-arrow bi bi-chevron-right"></i>
                             </p>
                         </a>
@@ -54,15 +54,68 @@
                             @endcan
                             @can('admin.roles.index')
                                 <li class="nav-item">
+                                    <a href="{{ route('admin.childcategory.index') }}" class="nav-link @yield('childcategoryList')">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Childcategory</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('admin.roles.index')
+                                <li class="nav-item">
                                     <a href="{{ route('admin.color.index') }}" class="nav-link @yield('colorList')">
                                         <i class="nav-icon bi bi-circle"></i>
                                         <p>Color</p>
                                     </a>
                                 </li>
                             @endcan
+                            @can('admin.roles.index')
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.size.index') }}" class="nav-link @yield('sizeList')">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Size</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('admin.roles.index')
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.brand.index') }}" class="nav-link @yield('brandList')">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Brands</p>
+                                    </a>
+                                </li>
+                            @endcan
                         </ul>
                     </li>
                 {{-- @endcanany --}}
+
+                    <li class="nav-item @yield('BannerMenuOpen')">
+                        <a href="#" class="nav-link @yield('BannerActive')">
+                            <i class="nav-icon bi bi-circle-fill"></i>
+                            <p>
+                                Banner & Ads
+                                <i class="nav-arrow bi bi-chevron-right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                              @can('admin.index')
+                            <li class="nav-item">
+                                <a href="{{ route('admin.banner-category.index') }}" class="nav-link @yield('bannerCategoryList')">
+                                    <i class="nav-icon bi bi-circle"></i>
+                                    <p>Banner Category</p>
+                                </a>
+                            </li>
+                             @endcan
+                            @can('admin.roles.index')
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.banner-ads.index') }}" class="nav-link @yield('bannerAdsList')">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Banner & Ads</p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+
                 @canany(['admin.index','admin.roles.index'])
                     <li class="nav-item @yield('AdminMenuOpen')">
                         <a href="#" class="nav-link @yield('AdminActive')">

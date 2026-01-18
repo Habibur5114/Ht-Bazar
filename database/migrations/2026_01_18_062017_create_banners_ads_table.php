@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('colors', function (Blueprint $table) {
+        Schema::create('banners_ads', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100)->unique();
-            $table->string('slug', 50)->unique();
+            $table->string('link')->nullable();
+            $table->string('banner_category');
+            $table->string('image')->nullable();
             $table->boolean('status')->default(1); // 1 = active, 0 = inactive
             $table->timestamps();
         });
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('colors');
+        Schema::dropIfExists('banners_ads');
     }
 };

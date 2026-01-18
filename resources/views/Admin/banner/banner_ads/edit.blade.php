@@ -1,8 +1,8 @@
 @extends('admin.master')
-@section('CategoryMenuOpen', 'menu-open')
-@section('CategoryActive', 'active')
-@section('subcategoryList', 'active')
-@section('title') {{ $title ?? 'category create' }} @endsection
+@section('BannerMenuOpen', 'menu-open')
+@section('BannerActive', 'active')
+@section('bannerAdsList', 'active')
+@section('title') {{ $title ?? 'banner Ads edit' }} @endsection
 @section('content')
     <div class="mt-5">
         <main class="app-main">
@@ -12,50 +12,48 @@
                         <div class="col-md-12 m-2">
                             <div class="card mb-4">
                                 <div class="d-flex justify-content-between align-items-center m-3 ">
-                                    <h3 class="card-title"><b>Edit Subcategory</b></h3>
-                                    <a href="{{ route('admin.subcategory.index') }}" class="btn btn-primary">
+                                    <h3 class="card-title"><b>Edit Banner Ads</b></h3>
+                                    <a href="{{ route('admin.banner-ads.index') }}" class="btn btn-primary">
                                         Back
                                     </a>
                                 </div>
                                 <hr>
                                 <div class="card-body">
-                                    <form method="POST" action="{{ route('admin.subcategory.update', $subcategorys->id) }}"
+                                    <form method="POST" action="{{ route('admin.banner-ads.update', $banner->id) }}"
                                         enctype="multipart/form-data">
                                         @csrf
-
                                         <div class="row">
-                                            <div class="col-md-6">
+
+                                            <div class="col-md-12">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Name <span
+                                                    <label class="form-label">Link <span
                                                             class="text-danger">*</span></label>
-                                                    <input type="text" name="name" class="form-control"
-                                                        placeholder="Enter name" value="{{ old('name', $subcategorys->name) }}">
-                                                    @error('name')
+                                                    <input type="text" name="link" class="form-control"
+                                                        placeholder="Enter link" value="{{ old('link', $banner->link) }}">
+                                                    @error('link')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Category Name<span
+                                                    <label class="form-label">Banner Category<span
                                                             class="text-danger">*</span></label>
-                                                    <select class="form-select form-control" name="category_id"  >
+                                                    <select class="form-select form-control" name="banner_category">
                                                         <option value="">Select Category</option>
                                                         @foreach ($categories as $category)
                                                             <option value="{{ $category->id }}"
-                                                                {{ old('category_id', $subcategorys->category_id) == $category->id ? 'selected' : '' }}>
+                                                                {{ old('banner_category', $banner->banner_category) == $category->id ? 'selected' : '' }}>
                                                                 {{ $category->name }}
                                                             </option>
                                                         @endforeach
                                                     </select>
-                                                    @error('category_id')
+                                                    @error('banner_category')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                             </div>
-
-
                                             <div class="col-md-12">
                                                 <div class="mb-3">
                                                     <label class="form-label">image<span
@@ -69,22 +67,14 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Description<span
-                                                            class="text-danger">*</span></label>
-                                                    <textarea name="description" id="" class="form-control" cols="30" rows="5">{{ old('description', $subcategorys->description) }}</textarea>
-                                                    @error('description')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-12">
-                                                <div class="mb-3">
                                                     <label class="form-label">Status<span
                                                             class="text-danger">*</span></label>
                                                     <select class="form-select form-control" name="status">
-                                                        <option value="1">Active</option>
-                                                        <option value="0">Inactive</option>
+                                                        <option value="1"
+                                                            {{ $banner->status == 1 ? 'selected' : '' }}>Active</option>
+                                                        <option value="0"
+                                                            {{ $banner->status == 0 ? 'selected' : '' }}>Inactive</option>
+
                                                     </select>
                                                     @error('status')
                                                         <span class="text-danger">{{ $message }}</span>
@@ -111,5 +101,3 @@
         </main>
     </div>
 @endsection
-
-
