@@ -10,8 +10,6 @@
 <meta name="description" content="" />
 <meta name="keywords"content="bootstrap 5," />
 <meta name="supported-color-schemes" content="light dark" />
-
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title> @yield('title') - {{ config('app.name', 'Venmeo.de') }} </title>

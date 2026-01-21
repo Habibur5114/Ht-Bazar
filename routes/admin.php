@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ChildCategoryController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\BannerCategoryController;
 use App\Http\Controllers\Admin\BannerAdsController;
@@ -30,6 +32,9 @@ Route::middleware(['admin:admin', 'role'])->prefix('admin')->name('admin.')->gro
     Route::get('/password/{id}', [AdminController::class, 'password'])->name('password');
     Route::post('/passwordchange/{id}', [AdminController::class, 'passwordchange'])->name('passwordchange');
 
+    Route::prefix('users')->group(function () {
+        Route::get('index', [UserController::class, 'index'])->name('users.index');
+    });
     Route::prefix('role')->group(function () {
         Route::get('index', [RoleController::class, 'index'])->name('roles.index');
         Route::get('create', [RoleController::class, 'create'])->name('roles.create');
@@ -101,6 +106,14 @@ Route::middleware(['admin:admin', 'role'])->prefix('admin')->name('admin.')->gro
         Route::get('edit/{id}', [BannerAdsController::class, 'edit'])->name('banner-ads.edit');
         Route::post('update/{id}', [BannerAdsController::class, 'update'])->name('banner-ads.update');
         Route::get('delete/{id}', [BannerAdsController::class, 'delete'])->name('banner-ads.delete');
+    });
+     Route::prefix('product')->group(function () {
+        Route::get('index', [ProductController::class, 'index'])->name('product.index');
+        Route::get('create', [ProductController::class, 'create'])->name('product.create');
+        Route::post('store', [ProductController::class, 'store'])->name('product.store');
+        Route::get('edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
+        Route::post('update/{id}', [ProductController::class, 'update'])->name('product.update');
+        Route::get('delete/{id}', [ProductController::class, 'delete'])->name('product.delete');
     });
 
     // settings
