@@ -46,7 +46,8 @@
                                                     <select class="form-select form-control" name="category_id">
                                                         <option value="">Select Category</option>
                                                         @foreach ($categories as $category)
-                                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                            <option value="{{ $category->id }}">{{ $category->name }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                     @error('category_id')
@@ -61,33 +62,36 @@
                                                     <select class="form-select form-control" name="subcategory_id">
                                                         <option value="">Select SubCategories</option>
                                                         @foreach ($subcategories as $subcategory)
-                                                            <option value="{{ $subcategory->id }}">{{ $subcategory->name }}</option>
+                                                            <option value="{{ $subcategory->id }}">{{ $subcategory->name }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
 
                                                 </div>
                                             </div>
-                                               <div class="col-md-6">
+                                            <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">ChildCategories<span
                                                             class="">(Optional)</span></label>
                                                     <select class="form-select form-control" name="ChildCategory_id">
                                                         <option value="">Select childCategories</option>
                                                         @foreach ($ChildCategorys as $ChildCategory)
-                                                            <option value="{{ $ChildCategory->id }}">{{ $ChildCategory->name }}</option>
+                                                            <option value="{{ $ChildCategory->id }}">
+                                                                {{ $ChildCategory->name }}</option>
                                                         @endforeach
                                                     </select>
 
                                                 </div>
                                             </div>
 
-                                               <div class="col-md-4">
+                                            <div class="col-md-4">
                                                 <div class="mb-3">
                                                     <label class="form-label">Brand</label>
                                                     <select class="form-select form-control" name="brand_id">
                                                         <option value="">Select Brand</option>
                                                         @foreach ($brands as $brand)
-                                                            <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                                            <option value="{{ $brand->id }}">{{ $brand->name }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
 
@@ -99,7 +103,8 @@
                                                     <label class="form-label">Purchase Price <span
                                                             class="text-danger">*</span></label>
                                                     <input type="text" name="purchase_price" class="form-control "
-                                                        placeholder="Enter purchase price" value="{{ old('purchase_price') }}">
+                                                        placeholder="Enter purchase price"
+                                                        value="{{ old('purchase_price') }}">
                                                     @error('purchase_price')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
@@ -138,22 +143,30 @@
                                                     @enderror
                                                 </div>
                                             </div>
+
                                             <div class="col-md-4">
                                                 <div class="mb-3">
-                                                    <label class="form-label">image <span
-                                                            class="text-danger">*</span></label>
-                                                    <input type="file" name="image" class="form-control "
-                                                        placeholder="Enter image" value="{{ old('image') }}">
-                                                    @error('image')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
+                                                    <label class="form-label">
+                                                        Images <span class="text-danger">*</span>
+                                                    </label>
+
+                                                    <div id="image-wrapper">
+                                                        <div class="d-flex mb-2">
+                                                            <input type="file" name="image[]"
+                                                                class="form-control rounded-0">
+                                                            <button type="button"
+                                                                class="btn btn-danger rounded-0 add-image">+</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">product unit(optional)</label>
                                                     <input type="text" name="product_unit" class="form-control "
-                                                        placeholder="Enter product_unit" value="{{ old('product_unit') }}">
+                                                        placeholder="Enter product_unit"
+                                                        value="{{ old('product_unit') }}">
                                                     @error('product_unit')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
@@ -162,31 +175,93 @@
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">product video(optional)</label>
-                                                    <input type="text" name="product_video" class="form-control "
-                                                        placeholder="Enter product video url" value="{{ old('product_video') }}">
+                                                    <input type="text" name="product_video" class="form-control"
+                                                        placeholder="Enter product video url"
+                                                        value="{{ old('product_video') }}">
                                                     @error('product_video')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                             </div>
 
-                                             <div class="col-md-4">
+                                            <div class="col-md-6">
+                                                <div class="mb-3" >
+                                                    <label class="form-label">Size(Optional)</label>
+                                                    <select class="size form-control" name="size[]" multiple="multiple">
+                                                        @foreach ($sizes as $size)
+                                                            <option value="{{ $size->id }}">{{ $size->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Brand</label>
-                                                    <select class="form-select" id="basic-usage" data-placeholder="Choose one thing">
-    <option></option>
-    <option>Reactive</option>
-    <option>Solution</option>
-    <option>Conglomeration</option>
-    <option>Algoritm</option>
-    <option>Holistic</option>
-</select>
-
+                                                    <label class="form-label">Color(Optional)</label>
+                                                    <select class="color form-select" name="color[]" multiple="multiple">
+                                                        @foreach ($colors as $color)
+                                                            <option value="{{ $color->id }}">{{ $color->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Description</label>
+                                                    <textarea name="description" class="form-control editor" placeholder="Enter description" style="height: 400px">{{ old('description') }}</textarea>
+                                                    @error('description')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
 
+                                            <div class="col-md-3">
+                                                <div class="mt-4">
+                                                    <label class="form-label d-block">Status</label>
+                                                    <label class="switch">
+                                                        <input type="checkbox" name="status" value="1"
+                                                            {{ isset($product) && $product->status ? 'checked' : '' }}>
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-3">
+                                                <div class="mt-4">
+                                                    <label class="form-label d-block">feature product</label>
+                                                    <label class="switch">
+                                                        <input type="checkbox" name="feature_product" value="1"
+                                                            {{ isset($product) && $product->feature_product ? 'checked' : '' }}>
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="mt-4">
+                                                    <label class="form-label d-block">best selling</label>
+                                                    <label class="switch">
+                                                        <input type="checkbox" name="best_selling" value="1"
+                                                            {{ isset($product) && $product->best_selling ? 'checked' : '' }}>
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="mt-4">
+                                                    <label class="form-label d-block">offer</label>
+                                                    <label class="switch">
+                                                        <input type="checkbox" name="offer" value="1"
+                                                            {{ isset($product) && $product->offer ? 'checked' : '' }}>
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+
                                             <!-- BUTTON -->
-                                            <div class="col-12 pb-5">
+                                            <div class="col-12 pb-5 mt-5">
                                                 <button type="submit" class="btn btn-success">Save</button>
                                             </div>
 
@@ -201,8 +276,39 @@
             </div>
         </main>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.size').select2({
+                placeholder: "Pick a size"
+            });
+            $('.color').select2({
+                placeholder: "Pick colors",
+                allowClear: true
+            });
+        });
+    </script>
+
+    <script>
+        ClassicEditor
+            .create(document.querySelector('.editor'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+    <script>
+        $(document).on('click', '.add-image', function() {
+            $('#image-wrapper').append(`
+        <div class="d-flex mb-2">
+            <input type="file" name="images[]" class="form-control rounded-0">
+            <button type="button" class="btn btn-danger rounded-0 remove-image">-</button>
+        </div>
+    `);
+        });
+
+        $(document).on('click', '.remove-image', function() {
+            $(this).parent().remove();
+        });
+    </script>
+
 @endsection
-
-
-
-

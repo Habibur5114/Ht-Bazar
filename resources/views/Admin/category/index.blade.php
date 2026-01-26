@@ -34,9 +34,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($categories as $category)
+                                            @foreach ($categories as $key => $category)
                                                 <tr class="align-middle">
-                                                    <td>{{ $category->id }}</td>
+                                                    <td>{{ $key + 1 }}</td>
                                                     <td>{{ $category->name }}</td>
                                                     <td>
                                                         @if ($category->image)

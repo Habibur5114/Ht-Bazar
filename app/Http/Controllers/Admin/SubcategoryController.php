@@ -106,6 +106,11 @@ class SubcategoryController extends Controller
     public function destroy($id)
     {
         $subcategory = Subcategory::findOrFail($id);
+        if ($subcategory->childcategories()->exists()) {
+            return redirect()
+                ->route('admin.subcategory.index')
+                ->with('error', 'Cannot delete subcategory because it has child categories!');
+        }
         $subcategory->delete();
 
         return redirect()

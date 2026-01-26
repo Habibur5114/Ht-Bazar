@@ -11,6 +11,8 @@ class BannerAds extends Model
 
 
       protected $fillable = [
+        'name',
+        'offer',
         'link',
         'banner_category',
         'image',

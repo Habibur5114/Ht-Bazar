@@ -26,9 +26,13 @@
                                         <thead>
                                             <tr>
                                                 <th style="width: 10px">sl</th>
-                                                <th>Name</th>
-                                                <th>Description</th>
-                                                <th>Status</th>
+                                                <th >Name</th>
+                                                <th>Category</th>
+                                                <th>image</th>
+                                                <th>Price</th>
+                                                <th>Stock</th>
+                                                <th>Best & Feature</th>
+                                                <th>status</th>
                                                 <th style="width: 120px">Action</th>
                                             </tr>
                                         </thead>
@@ -36,10 +40,21 @@
                                             @foreach ($products as $product)
                                                 <tr class="align-middle">
                                                     <td>{{ $product->id }}</td>
-                                                    <td>{{ $product->name }}</td>
+                                                    <td>{{ $product->product_name }}</td>
 
-                                                    <td>{{ $product->description }}</td>
-
+                                                    <td>{{ $product->category->name }}</td>
+                                                    <td>
+                                                        @if (!empty($product->image))
+                                                            <img src="{{ asset('uploads/products/' . $product->image[0]) }}"
+                                                                alt="Product Image" style="width:50px;height:50px;"
+                                                                class="rounded-circle">
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ $product->new_price }}</td>
+                                                    <td>{{ $product->stock }}</td>
+                                                    <td>
+                                                        Best Selling: {{ $product->best_selling == 1 ? 'Yes' : 'No' }} <br>
+                                                        Top Feature: {{ $product->feature_product == 1 ? 'Yes' : 'No' }}</td>
                                                     <td>
                                                         {{ $product->status == 1 ? 'Active' : 'Inactive' }}
                                                     </td>
@@ -50,8 +65,6 @@
                                                             class="btn btn-sm btn-danger confirmDelete">
                                                             Delete
                                                         </a>
-
-
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -66,4 +79,3 @@
         </main>
     </div>
 @endsection
-

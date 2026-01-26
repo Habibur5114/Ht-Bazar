@@ -26,6 +26,28 @@
 
                                             <div class="col-md-12">
                                                 <div class="mb-3">
+                                                    <label class="form-label">Name <span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="text" name="name" class="form-control"
+                                                        placeholder="Enter name" value="{{ old('name', $banner->name) }}">
+                                                    @error('name')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Offer <span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="text" name="offer" class="form-control"
+                                                        placeholder="Enter offer" value="{{ old('offer', $banner->offer) }}">
+                                                    @error('offer')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="mb-3">
                                                     <label class="form-label">Link <span
                                                             class="text-danger">*</span></label>
                                                     <input type="text" name="link" class="form-control"

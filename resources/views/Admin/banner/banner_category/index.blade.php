@@ -16,7 +16,8 @@
                                 <div class="d-flex justify-content-between align-items-center m-3 ">
                                     <h3 class="card-title mb-0"><b>Banner Category List</b></h3>
 
-                                    <a href="{{ route('admin.banner-category.create') }}" class="btn btn-primary">+ Banner Category
+                                    <a href="{{ route('admin.banner-category.create') }}" class="btn btn-primary">+ Banner
+                                        Category
                                         Create</a>
 
                                 </div>
@@ -63,4 +64,3 @@
         </main>
     </div>
 @endsection
-

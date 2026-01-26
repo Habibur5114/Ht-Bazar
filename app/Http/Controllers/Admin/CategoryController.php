@@ -27,7 +27,7 @@ class CategoryController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required',
+            'description' => 'nullable|string',
             'status' => 'required',
 
         ]);
@@ -89,7 +89,7 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->description = $request->description;
         $category->status = $request->status;
-    
+
         $category->save();
 
         return redirect()
@@ -97,18 +97,22 @@ class CategoryController extends Controller
             ->with('success', 'Category updated successfully!');
     }
 
-    public function delete($id)
-    {
-        $category = Category::findOrFail($id);
-
-        if ($category->image && File::exists(public_path($category->image))) {
-            File::delete(public_path($category->image));
-        }
-
-        $category->delete();
-
+   public function delete($id)
+{
+    $category = Category::findOrFail($id);
+    if ($category->subcategories()->exists()) {
         return redirect()
             ->route('admin.category.index')
-            ->with('success', 'Category deleted successfully!');
+            ->with('error', 'Cannot delete category because it has subcategories!');
     }
+    if ($category->image && File::exists(public_path($category->image))) {
+        File::delete(public_path($category->image));
+    }
+    $category->delete();
+
+    return redirect()
+        ->route('admin.category.index')
+        ->with('success', 'Category deleted successfully!');
+}
+
 }

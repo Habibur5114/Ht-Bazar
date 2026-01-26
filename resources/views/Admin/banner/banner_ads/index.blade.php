@@ -24,6 +24,8 @@
                                         <thead>
                                             <tr>
                                                 <th style="width: 10px">sl</th>
+                                                <th>Name</th>
+                                                <th>Offer</th>
                                                 <th>Banner Category</th>
                                                 <th>image</th>
                                                 <th>Status</th>
@@ -31,13 +33,15 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($banners as $banner)
+                                            @foreach ($banners as $key => $banner)
                                                 <tr class="align-middle">
-                                                    <td>{{ $banner->id }}</td>
+                                                    <td>{{ $key + 1 }}</td>
+                                                    <td>{{ $banner->name }}</td>
+                                                    <td>{{ $banner->offer }}</td>
                                                     <td>{{ $banner->bannercategory->name }}</td>
                                                     <td>
                                                         @if ($banner->image)
-                                                            <img src="{{ asset('uploads/banners/' . $banner->image) }}" width="30">
+                                                            <img src="{{ asset('uploads/banners/' . $banner->image) }}" width="120px">
                                                         @else
                                                             No Image
                                                         @endif
