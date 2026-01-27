@@ -26,16 +26,16 @@
                                         <thead>
                                             <tr>
                                                 <th style="width: 10px">sl</th>
-                                        
+
                                                 <th>Name</th>
                                                 <th>Status</th>
                                                 <th style="width: 120px">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($colors as $color)
+                                            @foreach ($colors as $key => $color)
                                                 <tr class="align-middle">
-                                                    <td>{{ $color->id }}</td>
+                                                    <td>{{ $key + 1 }}</td>
                                                     <td>{{ $color->name }}</td>
                                                     <td>
                                                         {{ $color->status == 1 ? 'Active' : 'Inactive' }}

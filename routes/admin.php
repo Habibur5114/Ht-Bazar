@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ChildCategoryController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\BannerCategoryController;
 use App\Http\Controllers\Admin\BannerAdsController;
@@ -114,6 +115,14 @@ Route::middleware(['admin:admin', 'role'])->prefix('admin')->name('admin.')->gro
         Route::get('edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
         Route::post('update/{id}', [ProductController::class, 'update'])->name('product.update');
         Route::get('delete/{id}', [ProductController::class, 'delete'])->name('product.delete');
+    });
+     Route::prefix('slider')->group(function () {
+        Route::get('index', [SliderController::class, 'index'])->name('slider.index');
+        Route::get('create', [SliderController::class, 'create'])->name('slider.create');
+        Route::post('store', [SliderController::class, 'store'])->name('slider.store');
+        Route::get('edit/{id}', [SliderController::class, 'edit'])->name('slider.edit');
+        Route::post('update/{id}', [SliderController::class, 'update'])->name('slider.update');
+        Route::get('delete/{id}', [SliderController::class, 'delete'])->name('slider.delete');
     });
 
     // settings

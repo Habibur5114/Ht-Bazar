@@ -33,9 +33,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($sizes as $size)
+                                            @foreach ($sizes as $key => $size)
                                                 <tr class="align-middle">
-                                                    <td>{{ $size->id }}</td>
+                                                    <td>{{ $key + 1 }}</td>
                                                     <td>{{ $size->name }}</td>
                                                     <td>
                                                         {{ $size->status == 1 ? 'Active' : 'Inactive' }}

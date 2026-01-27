@@ -35,9 +35,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($childCategories as $childCategory)
+                                            @foreach ($childCategories as $key => $childCategory)
                                                 <tr class="align-middle">
-                                                    <td>{{ $childCategory->id }}</td>
+                                                    <td>{{ $key + 1 }}</td>
                                                     <td>{{ $childCategory->subcategory->name }}</td>
                                                     <td>{{ $childCategory->name }}</td>
                                                     <td>

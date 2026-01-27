@@ -1,8 +1,8 @@
 @extends('admin.master')
-@section('BannerMenuOpen', 'menu-open')
-@section('BannerActive', 'active')
-@section('bannerCategoryList', 'active')
-@section('title') {{ $title ?? 'category list' }} @endsection
+@section('SliderMenuOpen', 'menu-open')
+@section('SliderActive', 'active')
+@section('sliderList', 'active')
+@section('title') {{ $title ?? 'slider list' }} @endsection
 
 
 @section('content')
@@ -14,10 +14,9 @@
                         <div class="col-md-12 m-2">
                             <div class="card mb-4">
                                 <div class="d-flex justify-content-between align-items-center m-3 ">
-                                    <h3 class="card-title mb-0"><b>Banner Category List</b></h3>
+                                    <h3 class="card-title mb-0"><b>Slider List</b></h3>
 
-                                    <a href="{{ route('admin.banner-category.create') }}" class="btn btn-primary">+ Banner
-                                        Category
+                                    <a href="{{ route('admin.slider.create') }}" class="btn btn-primary">+ Slider
                                         Create</a>
 
                                 </div>
@@ -27,24 +26,34 @@
                                         <thead>
                                             <tr>
                                                 <th style="width: 10px">sl</th>
-
-                                                <th>Name</th>
+                                                <th style="width: 280px">Title</th>
+                                                <th>Subtitle</th>
+                                                <th style="width: 180px">Image</th>
+                                                <th>Button-Text</th>
+                                                <th>Button-Link</th>
                                                 <th>Status</th>
                                                 <th style="width: 120px">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($categories as $key => $category)
+                                            @foreach ($sliders as $key => $slider)
                                                 <tr class="align-middle">
                                                     <td>{{ $key + 1 }}</td>
-                                                    <td>{{ $category->name }}</td>
+                                                    <td>{{ $slider->title }}</td>
+                                                    <td class="">{{ Str::limit($slider->subtitle, 200) }}</td>
                                                     <td>
-                                                        {{ $category->status == 1 ? 'Active' : 'Inactive' }}
+                                                        <img src="{{ asset($slider->image) }}" alt="Slider Image"
+                                                            class="w-50">
+                                                    </td>
+                                                    <td>{{ $slider->button_text }}</td>
+                                                    <td>{{ $slider->button_link }}</td>
+                                                    <td>
+                                                        {{ $slider->status == 1 ? 'Active' : 'Inactive' }}
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('admin.banner-category.edit', $category->id) }}"
+                                                        <a href="{{ route('admin.slider.edit', $slider->id) }}"
                                                             class="btn btn-sm btn-primary">Edit</a>
-                                                        <a href="{{ route('admin.banner-category.delete', $category->id) }}"
+                                                        <a href="{{ route('admin.slider.delete', $slider->id) }}"
                                                             class="btn btn-sm btn-danger confirmDelete">
                                                             Delete
                                                         </a>
@@ -64,3 +73,4 @@
         </main>
     </div>
 @endsection
+

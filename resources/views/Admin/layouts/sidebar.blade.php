@@ -148,6 +148,27 @@
 
 
                 @canany(['admin.index', 'admin.roles.index'])
+                    <li class="nav-item @yield('SliderMenuOpen')">
+                        <a href="#" class="nav-link @yield('SliderActive')">
+                            <i class="nav-icon bi bi-circle-fill"></i>
+                            <p>
+                                Sliders
+                                <i class="nav-arrow bi bi-chevron-right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @can('admin.index')
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.slider.index') }}" class="nav-link @yield('sliderList')">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Slider</p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endcanany
+                @canany(['admin.index', 'admin.roles.index'])
                     <li class="nav-item @yield('AdminMenuOpen')">
                         <a href="#" class="nav-link @yield('AdminActive')">
                             <i class="nav-icon bi bi-circle-fill"></i>
