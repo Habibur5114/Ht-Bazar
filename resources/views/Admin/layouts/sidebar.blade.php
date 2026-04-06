@@ -390,6 +390,14 @@
                                 </a>
                             </li>
                         </ul>
+                        {{-- <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.slider.index') }}" class="nav-link @yield('sliderList')">
+                                    <i class="nav-icon bi bi-circle"></i>
+                                    <p>Slider</p>
+                                </a>
+                            </li>
+                        </ul> --}}
                     </li>
                 @endcan
 
