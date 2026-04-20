@@ -18,11 +18,7 @@ class AdminController extends Controller
 
         return view('Admin.pages.dashboard');
     }
-    // public function index()
-    // {
-
-    //     return view('Admin.pages.dashboard');
-    // }
+  
 
     public function adminlist()
     {
